@@ -238,3 +238,7 @@ logs
 *.jpeg
 viz
 vis
+
+
+*.mdb
+data/

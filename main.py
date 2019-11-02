@@ -201,6 +201,7 @@ def main(args):
   # Start training
   evaluator.evaluate(test_loader, step=0, tfLogger=eval_tfLogger, dataset=test_dataset)
   for epoch in range(start_epoch, args.epochs):
+    print("===>epoch {}".format(epoch))
     scheduler.step(epoch)
     current_lr = optimizer.param_groups[0]['lr']
     trainer.train(epoch, train_loader, optimizer, current_lr,
@@ -210,7 +211,8 @@ def main(args):
                   evaluator=evaluator, 
                   test_loader=test_loader, 
                   eval_tfLogger=eval_tfLogger,
-                  test_dataset=test_dataset)
+                  test_dataset=test_dataset,
+                  test_freq=50)
 
   # Final test
   print('Test with best model:')
@@ -227,3 +229,9 @@ if __name__ == '__main__':
   # parse the config
   args = get_args(sys.argv[1:])
   main(args)
+
+
+'''
+source /media/DT_Moyan/.pyenv/versions/miniconda3-4.1.11/bin/activate aster
+bash scripts/stn_att_rec_pricetag.sh
+'''

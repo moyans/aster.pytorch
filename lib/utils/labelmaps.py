@@ -9,15 +9,17 @@ def get_vocabulary(voc_type, EOS='EOS', PADDING='PADDING', UNKNOWN='UNKNOWN'):
   voc_type: str: one of 'LOWERCASE', 'ALLCASES', 'ALLCASES_SYMBOLS'
   '''
   voc = None
-  types = ['LOWERCASE', 'ALLCASES', 'ALLCASES_SYMBOLS']
+  types = ['LOWERCASE', 'ALLCASES', 'ALLCASES_SYMBOLS', 'ARABIC_NUM']
   if voc_type == 'LOWERCASE':
     voc = list(string.digits + string.ascii_lowercase)
   elif voc_type == 'ALLCASES':
     voc = list(string.digits + string.ascii_letters)
   elif voc_type == 'ALLCASES_SYMBOLS':
     voc = list(string.printable[:-6])
+  elif voc_type == 'ARABIC_NUM':
+    voc = list(string.printable[:10])
   else:
-    raise KeyError('voc_type must be one of "LOWERCASE", "ALLCASES", "ALLCASES_SYMBOLS"')
+    raise KeyError('voc_type must be one of "LOWERCASE", "ALLCASES", "ALLCASES_SYMBOLS", "ARABIC_NUM"')
 
   # update the voc with specifical chars
   voc.append(EOS)

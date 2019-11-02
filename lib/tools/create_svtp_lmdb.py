@@ -79,20 +79,24 @@ def createDataset(outputPath, imagePathList, labelList, lexiconList=None, checkV
   print('Created dataset with %d samples' % nSamples)
 
 if __name__ == "__main__":
-  data_dir = '/data/mkyang/datasets/English/benchmark/svtp/'
-  lmdb_output_path = '/data/mkyang/datasets/English/benchmark_lmdbs_new/svt_p_645'
-  gt_file = os.path.join(data_dir, 'gt.txt')
+  data_dir = '/data/code/sunchao/aster.pytorch/data/0717_nopoint/train_tf/'
+  gt_file = '/data/code/sunchao/aster.pytorch/data/0717_nopoint/train.txt'
+  lmdb_output_path = '/data/code/sunchao/aster.pytorch/data/0717_nopoint/pricetag_nop_train'
+  # lmdb_output_path = '/data/mkyang/datasets/English/benchmark_lmdbs_new/svt_p_645'
+  # gt_file = os.path.join(data_dir, 'gt.txt')
   image_dir = data_dir
   with open(gt_file, 'r') as f:
     lines = [line.strip('\n') for line in f.readlines()]
 
   imagePathList, labelList = [], []
   for i, line in enumerate(lines):
-    splits = line.split(' ')
+    splits = line.split('	')
     image_name = splits[0]
-    gt_text = splits[1]
+    gt_text = splits[1].strip()
     print(image_name, gt_text)
-    imagePathList.append(os.path.join(image_dir, image_name))
+    imgPath = os.path.join(image_dir, image_name)
+    assert os.path.exists(imgPath)
+    imagePathList.append(imgPath)
     labelList.append(gt_text)
 
   createDataset(lmdb_output_path, imagePathList, labelList)
