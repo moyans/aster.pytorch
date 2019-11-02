@@ -212,7 +212,7 @@ def main(args):
                   test_loader=test_loader, 
                   eval_tfLogger=eval_tfLogger,
                   test_dataset=test_dataset,
-                  test_freq=50)
+                  test_freq=62)
 
   # Final test
   print('Test with best model:')
